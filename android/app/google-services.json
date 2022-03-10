@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "818517177167",
+    "firebase_url": "https://fireabseauthentication.firebaseio.com",
+    "project_id": "fireabseauthentication",
+    "storage_bucket": "fireabseauthentication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818517177167:android:548286f05f91a7c63d8b3a",
+        "android_client_info": {
+          "package_name": "com.faiizii.assignment.upwork_assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818517177167-mffqtu3h6p86d7imqnkujek1j0o0t1m0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.faiizii.assignment.upwork_assignment",
+            "certificate_hash": "28e9f7657e593ec0c59732ec7fe8d617f85e84c0"
+          }
+        },
+        {
+          "client_id": "818517177167-rv2fl4f08n5fvmo5aoe964ckmefbpvh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeMDa9mKNmO7JPhrO6VO8npen1rP7u6SA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818517177167-rv2fl4f08n5fvmo5aoe964ckmefbpvh8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
