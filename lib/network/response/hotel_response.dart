@@ -5,11 +5,11 @@ import 'package:upwork_assignment/model/hotel_model.dart';
 class HotelResponse {
   HotelResponse({
     required this.status,
-    required this.hotelModel,
+    required this.hotelList,
   });
 
   int status;
-  List<HotelModel> hotelModel;
+  List<HotelModel> hotelList;
 
   factory HotelResponse.fromRawJson(String str) => HotelResponse.fromJson(json.decode(str));
 
@@ -17,11 +17,11 @@ class HotelResponse {
 
   factory HotelResponse.fromJson(Map<String, dynamic> json) => HotelResponse(
     status: json["status"] ?? -1,
-    hotelModel: json["data"] == null ? <HotelModel>[] : List<HotelModel>.from(json["data"].map((x) => HotelModel.fromJson(x))),
+    hotelList: json["data"] == null ? <HotelModel>[] : List<HotelModel>.from(json["data"].map((x) => HotelModel.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "hotel_model": List<dynamic>.from(hotelModel.map((x) => x.toJson())),
+    "hotel_model": List<dynamic>.from(hotelList.map((x) => x.toJson())),
   };
 }

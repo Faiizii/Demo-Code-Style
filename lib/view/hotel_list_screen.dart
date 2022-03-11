@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:upwork_assignment/bloc/hotel_bloc.dart';
 import 'package:upwork_assignment/model/hotel_model.dart';
+import 'package:upwork_assignment/model/user_model.dart';
 import 'package:upwork_assignment/network/error_model.dart';
 import 'package:upwork_assignment/view/hotel_detail_screen.dart';
 import 'package:upwork_assignment/view/login_screen.dart';
 
 class HotelListingScreen extends StatefulWidget {
-  const HotelListingScreen({Key? key}) : super(key: key);
+  final UserModel userModel;
+  const HotelListingScreen(this.userModel, {Key? key}) : super(key: key);
 
   @override
   _HotelListingScreenState createState() => _HotelListingScreenState();
@@ -18,7 +20,7 @@ class _HotelListingScreenState extends State<HotelListingScreen> {
   final HotelBloc _bloc = HotelBloc();
   @override
   void initState() {
-    _bloc.add(GetHotelList()); // add event to bloc
+    _bloc.add(GetHotelList()); // add event to bloc that fetch the hotel listing from data source
     super.initState();
   }
   @override
@@ -27,24 +29,28 @@ class _HotelListingScreenState extends State<HotelListingScreen> {
       appBar: AppBar(title: const Text('ListView'), centerTitle: true),
       body: Center(
         child: Column(children: <Widget>[
+
           Padding(
             padding: const EdgeInsets.only(top:16.0,bottom: 4),
-            child: Text('User Name Here',style: Theme.of(context).textTheme.subtitle1,),
+            child: Text('${widget.userModel.fullName}',style: Theme.of(context).textTheme.subtitle1,),
           ),
-          Text('abc@domain.com',style: Theme.of(context).textTheme.caption,),
-          const SizedBox(height: 8,),
+          Text('${widget.userModel.email}',style: Theme.of(context).textTheme.caption,),
+
+          const SizedBox(height: 8,), //used for spacing purpose. we call use top padding etc.
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size(180,36)
+              minimumSize: const Size(180,36) // define the minimum size for button dimension as per shared SS designs
             ),
             child: const Text('Logout'),
             onPressed: (){
               FirebaseAuth.instance.signOut();
+              //replace the route with the new route (i.e login screen)
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const LoginScreen(),),(route) => false,);
             },
           ),
           Expanded(
+            //to cover the remaining screen area for the hotel listing
             child: _hotelListView()
           )
 
@@ -99,9 +105,11 @@ class _HotelListingScreenState extends State<HotelListingScreen> {
         child: Image.network(
             hotel.image.small,
           errorBuilder: (context, error, stackTrace) {
+              //incase the image link is broken or image not found on the provided link
             return const Center(child: Icon(Icons.broken_image,size: 24,),);
           },
           loadingBuilder: (context,widget,event){
+              //show progress while the image.network fetch image from the server
             return const Center(child: CircularProgressIndicator(strokeWidth: 1,color: Colors.white,),);
           },
         ),

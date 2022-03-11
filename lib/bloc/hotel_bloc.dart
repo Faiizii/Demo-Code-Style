@@ -4,12 +4,8 @@ import 'package:upwork_assignment/model/hotel_model.dart';
 import 'package:upwork_assignment/network/error_model.dart';
 import 'package:upwork_assignment/provider/hotel_provider.dart';
 
-abstract class HotelEvent extends Equatable {
-  const HotelEvent();
+abstract class HotelEvent{}
 
-  @override
-  List<Object> get props => [];
-}
 class GetHotelList extends HotelEvent{}
 
 abstract class ListState extends Equatable {
@@ -38,20 +34,20 @@ class HotelBloc extends Bloc<HotelEvent,ListState>{
   HotelBloc():super(LoadingHotels()){
     final _hotelProvider = HotelProvider();
     on<GetHotelList>((event, emit) async {
+      //emit the states on the bases of data
+      // so the ui show the respective widgets
       emit(LoadingHotels());
-      print('loading');
       var list = await _hotelProvider.getHotels();
       if(list is ErrorModel){
-        print('error loading');
         emit(ErrorLoadingHotels(list.message));
-      }else{
-        print('loaded');
+      }else if(list is List<HotelModel>){
         if(list.isEmpty){
-          print('empty loaded');
           emit(NoHotelFound());
         }else{
           emit(HotelsLoaded(list));
         }
+      }else{
+        emit(const ErrorLoadingHotels('Unknown reasons'));
       }
     });
   }

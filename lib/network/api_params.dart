@@ -1,4 +1,5 @@
 class ApiParams {
+  //singleton design pattern
   static final ApiParams _instance = ApiParams._();
   ApiParams._();
   factory ApiParams() => _instance;

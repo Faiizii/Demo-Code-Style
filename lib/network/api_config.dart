@@ -3,6 +3,7 @@ import 'package:upwork_assignment/constant/network_request_enum.dart';
 import 'package:upwork_assignment/network/error_model.dart';
 import 'package:upwork_assignment/utils/app_utils.dart';
 
+//class for api/http client configuration
 class ApiConfig {
   static final ApiConfig _instance = ApiConfig._();
 

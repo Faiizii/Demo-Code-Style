@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:upwork_assignment/bloc/cubit/theme_cubit.dart';
 import 'package:upwork_assignment/view/login_screen.dart';
 
 void main() async {
@@ -16,26 +15,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ThemeCubit(),
-      child: const MyAppView()
+    return MaterialApp(
+      title: 'Upwork Assignment',
+      theme: ThemeData(
+        colorScheme: Theme.of(context).colorScheme.copyWith(
+          primary: const Color(0xFF25a0a2),
+        )
+      ),
+      home: const LoginScreen(),
     );
   }
 
-}
-class MyAppView extends StatelessWidget {
-  const MyAppView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeData>(
-      builder: (context, theme) {
-        return MaterialApp(
-          title: 'Upwork Assignment',
-          theme: theme,
-          home: const LoginScreen(),
-        );
-      },
-    );
-  }
 }

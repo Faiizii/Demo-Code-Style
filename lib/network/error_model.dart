@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:http/http.dart';
 
+//general error model class for any error type while communicating with any type of server
 class ErrorModel{
   late int statusCode;
   late String message;
