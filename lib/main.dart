@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upwork_assignment/test_code/test_screen.dart';
 import 'package:upwork_assignment/view/login_screen.dart';
 
 void main() async {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           primary: const Color(0xFF25a0a2),
         )
       ),
-      home: const LoginScreen(),
+      home: const TestScreen(),
     );
   }
 
