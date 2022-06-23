@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:upwork_assignment/test_code/foreground_services.dart';
+import 'package:wakelock/wakelock.dart';
 
 // The callback function should always be a top-level function.
 void startCallback() {
@@ -20,12 +21,14 @@ class TestScreen extends StatefulWidget {
 class _TestScreenState extends State<TestScreen> {
   String timer = "This is the time";
   ReceivePort? _receivePort;
-  int seconds = 10;
+  int seconds = 60;
   @override
   void initState() {
     _initForegroundTask();
+    Wakelock.enable();
     super.initState();
   }
+
   Future<void> _initForegroundTask() async {
     await FlutterForegroundTask.init(
       androidNotificationOptions: AndroidNotificationOptions(
@@ -51,7 +54,7 @@ class _TestScreenState extends State<TestScreen> {
         playSound: false,
       ),
       foregroundTaskOptions: const ForegroundTaskOptions(
-        interval: 5000,
+        interval: 1,
         autoRunOnBoot: true,
         allowWifiLock: true,
       ),
@@ -144,6 +147,7 @@ class _TestScreenState extends State<TestScreen> {
   @override
   void dispose() {
     _closeReceivePort();
+    Wakelock.disable();
     super.dispose();
   }
 }

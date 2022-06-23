@@ -46,6 +46,7 @@ dependencies:
 
   flutter_foreground_task:
   audioplayers:
+  wakelock:
   audio_manager: ^0.8.2
 
   http:

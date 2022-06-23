@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:isolate';
 
@@ -23,30 +24,30 @@ class MyTaskHandler extends TaskHandler {
       Timer.periodic(const Duration(seconds: 1), (timer) async {
         if(_seconds < 1){
           // //play the sound file here
-          // // await player.play(AssetSource('timer_song.mp3'));
-          // AudioManager.instance.start(
-          //     "assets/timer_song.mp3",
-          //     // "network format resource"
-          //     // "local resource (file://${file.path})"
-          //     "title",
-          //     desc: "desc",
-          //     // cover: "network cover image resource"
-          //     cover: "assets/ic_launcher.png",
-          // ).then((err) {print(err);});
-          // AudioManager.instance.playOrPause();
-          // AudioManager.instance.onEvents((AudioManagerEvents events, args) {
-          //   if(events == AudioManagerEvents.ended){
-          //     AudioManager.instance.stop();
-          //     AudioManager.instance.release();
-          //   }
-          // });
+          // await player.play(AssetSource('timer_song.mp3'));
+          AudioManager.instance.start(
+              "assets/timer_song.mp3",
+              // "network format resource"
+              // "local resource (file://${file.path})"
+              "title",
+              desc: "desc",
+              // cover: "network cover image resource"
+              cover: "assets/ic_launcher.png",
+          ).then((err) {print(err);});
+          AudioManager.instance.playOrPause();
+          AudioManager.instance.onEvents((AudioManagerEvents events, args) {
+            if(events == AudioManagerEvents.ended){
+              AudioManager.instance.stop();
+              AudioManager.instance.release();
+            }
+          });
           timer.cancel();
           sendPort?.send("moveForward");
           // player.setReleaseMode(ReleaseMode.release);
           // player.release();
         } else {
           _seconds--;
-          print("seconds $_seconds");
+          log("seconds $_seconds");
           sendPort?.send("Remaining Time: $_seconds");
           if(!Platform.isIOS) {
             //on iOS it is not working as expecting
@@ -58,18 +59,18 @@ class MyTaskHandler extends TaskHandler {
         }
       });
     }
-    print('seconds: $seconds');
+    log('seconds: $seconds');
   }
 
   @override
   Future<void> onEvent(DateTime timestamp, SendPort? sendPort) async {
-    print("test");
+    log("test");
   }
 
   @override
   Future<void> onDestroy(DateTime timestamp, SendPort? sendPort) async {
     // You can use the clearAllData function to clear all the stored data.
-    print("on destroy called");
+    log("on destroy called");
     await FlutterForegroundTask.clearAllData();
   }
 
