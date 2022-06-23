@@ -61,16 +61,21 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ElevatedButton(onPressed: _startForegroundTask, child: const Text("Start")),
-          const Spacer(),
-          Text(timer),
-          const Spacer(),
-          ElevatedButton(onPressed: _stopForegroundTask, child: const Text("Stop"))
-        ],
+      body: SafeArea(child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Spacer(),
+            ElevatedButton(onPressed: _startForegroundTask, child: const Text("Start")),
+            const Spacer(),
+            Text(timer),
+            const Spacer(),
+            ElevatedButton(onPressed: _stopForegroundTask, child: const Text("Stop")),
+            const Spacer(),
+          ],
+        ),
       ),),
     );
   }
