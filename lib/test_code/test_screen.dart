@@ -98,24 +98,24 @@ class _TestScreenState extends State<TestScreen> {
     // You can save data using the saveData function.
     await FlutterForegroundTask.saveData(key: 'seconds', value: seconds);
 
-    ReceivePort? receivePort;
+    bool isReceivePort;
     if (await FlutterForegroundTask.isRunningService) {
-      receivePort = await FlutterForegroundTask.restartService();
+      isReceivePort = await FlutterForegroundTask.restartService();
     } else {
-      receivePort = await FlutterForegroundTask.startService(
+      isReceivePort = await FlutterForegroundTask.startService(
         notificationTitle: 'Foreground Service is running',
         notificationText: 'Tap to return to the app',
         callback: startCallback,
       );
     }
     print("called");
-    return _registerReceivePort(receivePort);
+    return _registerReceivePort(isReceivePort);
   }
-  bool _registerReceivePort(ReceivePort? receivePort) {
+  Future<bool> _registerReceivePort(bool isReceivePort) async {
     _closeReceivePort();
 
-    if (receivePort != null) {
-      _receivePort = receivePort;
+    if (isReceivePort) {
+      _receivePort = await FlutterForegroundTask.receivePort;
       _receivePort?.listen((message) {
         if (message is int) {
           print('eventCount: $message');

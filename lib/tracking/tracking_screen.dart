@@ -31,9 +31,14 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
   StreamSubscription<Position>? _locationStreamSubscription;
   late Position currentPosition;
   late BitmapDescriptor carImage;
+  late final AnimationController animationController;
   @override
   void initState() {
     super.initState();
+    animationController = AnimationController(
+      duration: const Duration(seconds: 10), //Animation duration of marker
+      vsync: this, //From the widget
+    );
     getBytesFromAsset('images/ic_car.png', 60).then((value) => carImage = BitmapDescriptor.fromBytes(value) );
 
     Geolocator.requestPermission().then((value){
@@ -60,7 +65,7 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
             currentPosition.latitude, currentPosition.longitude,
             position.latitude, position.longitude,
             position.heading,
-            _mapMarkerSink, this, _controller
+            _mapMarkerSink, _controller
         );
       });
     });
@@ -113,7 +118,6 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
       double heading,
       StreamSink<List<Marker>>
       mapMarkerSink, //Stream build of map to update the UI
-      TickerProvider provider, //Ticker provider of the widget. This is used for animation
       GoogleMapController controller, //Google map controller of our widget
       ) async {
     final double bearing = heading;
@@ -133,10 +137,6 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
     _markers.add(carMarker);
     mapMarkerSink.add(_markers);
 
-    final animationController = AnimationController(
-      duration: const Duration(seconds: 1), //Animation duration of marker
-      vsync: provider, //From the widget
-    );
 
     Tween<double> tween = Tween(begin: 0, end: 1);
 

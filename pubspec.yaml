@@ -38,17 +38,20 @@ dependencies:
   google_maps_flutter: ^2.1.2
   geolocator:
 
-  firebase_auth:
-  firebase_core: 
-  flutter_facebook_auth: ^4.1.1
+#  firebase_auth:
+#  firebase_core:
+#  flutter_facebook_auth: ^4.1.1
 
   flutter_bloc: ^8.0.1
   equatable:
 
+  flutter_foreground_task:
+  audioplayers:
+  wakelock:
+  audio_manager: ^0.8.2
+
   http:
   connectivity_plus:
-
-  maps_toolkit:
 
 dev_dependencies:
   flutter_test:
