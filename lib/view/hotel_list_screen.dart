@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:upwork_assignment/bloc/hotel_bloc.dart';
@@ -43,7 +43,7 @@ class _HotelListingScreenState extends State<HotelListingScreen> {
             ),
             child: const Text('Logout'),
             onPressed: (){
-              FirebaseAuth.instance.signOut();
+              // FirebaseAuth.instance.signOut();
               //replace the route with the new route (i.e login screen)
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const LoginScreen(),),(route) => false,);
